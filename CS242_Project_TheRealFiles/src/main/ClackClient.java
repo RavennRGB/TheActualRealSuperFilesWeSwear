@@ -67,10 +67,6 @@ public class ClackClient {
         try {
 
             Socket skt = new Socket(hostName, port);
-            // Socket skt = new Socket(hostName, DEFAULT_PORT);
-            System.out.println("test");
-            // PrintWriter outToServer = new PrintWriter(skt.getOutputStream(), true);
-            // BufferedReader inFromServer = new BufferedReader(new InputStreamReader(skt.getInputStream()));
             this.outToServer = new ObjectOutputStream(skt.getOutputStream());
             this.inFromServer = new ObjectInputStream(skt.getInputStream());
 
@@ -85,11 +81,8 @@ public class ClackClient {
                     printData();
 
 
-                    // outToServer.println("From Server: Echo--" + inFromStd);
                 }
 
-                // dataToReceiveFromServer = dataToSendToServer;
-                //  printData();
             }
             this.inFromStd.close();
             this.outToServer.close();
@@ -128,7 +121,6 @@ public class ClackClient {
                 }
             } else {
                 String message = nextString + this.inFromStd.nextLine();
-                // dataToSendToServer = new MessageClackData();
 
                 this.dataToSendToServer = new MessageClackData(this.userName, message, DEFAULTKEY, ClackData.CONSTANT_SENDMESSAGE);
             }
@@ -153,7 +145,6 @@ public class ClackClient {
 
     public void receiveData() {
         try {
-//            ClackData dataToReceiveFromServer = (ClackData) inFromServer.readObject();
 
             this.dataToReceiveFromServer = (ClackData) this.inFromServer.readObject();
 
@@ -165,7 +156,7 @@ public class ClackClient {
             System.err.println("runtime Exception");
         }
     }
-    // inFromServer();
+
 
     public void printData() {
 
@@ -175,7 +166,7 @@ public class ClackClient {
             System.out.println("Data: " + this.dataToReceiveFromServer.getData(DEFAULTKEY));
             System.out.println();
         }
-        //System.out.println(dataToReceiveFromServer);
+
     }
 
     ;
@@ -226,7 +217,6 @@ public class ClackClient {
                 String hostname = scan.next();
                 System.out.println(hostname);
                 if (scan.hasNext()) {
-//                    int port = Integer.parseInt(args[0]);
                     int port = Integer.parseInt(scan.next());
                     System.out.println(port);
                     client = new ClackClient(username, hostname, port);

@@ -65,7 +65,7 @@ public class ClackServer {
     public void receiveData() {
         try {
             this.dataToReceiveFromClient = (ClackData) this.inFromClient.readObject();
-            //this.inFromClient.readObject(this.dataToReceiveFromClient);
+
         } catch (IOException ioe) {
             System.err.println("IO Exception");
         } catch (ClassNotFoundException cnfe) {
@@ -79,7 +79,6 @@ public class ClackServer {
     public void sendData() {
         try {
 
-            //this.dataToSendToClient = this.dataToReceiveFromClient;
             this.outToClient.writeObject(this.dataToSendToClient);
 
         } catch (IOException ioe) {
