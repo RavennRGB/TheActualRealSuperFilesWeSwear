@@ -64,10 +64,8 @@ public class ClackServer {
 
     public void receiveData() {
         try {
-            System.out.println("reached before try in receive data");
             this.dataToReceiveFromClient = (ClackData) this.inFromClient.readObject();
             //this.inFromClient.readObject(this.dataToReceiveFromClient);
-            System.out.println("reached try in receive data");
         } catch (IOException ioe) {
             System.err.println("IO Exception");
         } catch (ClassNotFoundException cnfe) {
@@ -80,10 +78,10 @@ public class ClackServer {
 
     public void sendData() {
         try {
-            System.out.println("reached before try in send data");
+
             //this.dataToSendToClient = this.dataToReceiveFromClient;
             this.outToClient.writeObject(this.dataToSendToClient);
-            System.out.println("reached try in send data");
+
         } catch (IOException ioe) {
             System.err.println("IO Exception");
         } catch (RuntimeException rte) {

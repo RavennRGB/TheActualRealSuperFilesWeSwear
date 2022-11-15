@@ -75,18 +75,13 @@ public class ClackClient {
             this.inFromServer = new ObjectInputStream(skt.getInputStream());
 
             while (!this.closeConnection) {
-                System.out.println("connection open");
                 readClientData();
                 this.dataToReceiveFromServer = this.dataToSendToServer;
-                System.out.println("ye");
                 if (inFromStd == null) {
                     System.out.println("No input detected");
                 } else {
-                    System.out.println("send data");
                     sendData();
-                    System.out.println("receive data");
                     receiveData();
-                    System.out.println("print");
                     printData();
 
 
@@ -103,13 +98,13 @@ public class ClackClient {
 
 
         } catch (IOException ioe) {
-            System.err.println("Try that again");
+            System.err.println("IO exception");
 
         }
     }
 
     public void readClientData() {
-        System.out.println("Input desired choice");
+        System.out.println("Input message: ");
         String nextString = inFromStd.next();
         try {
             if (nextString.equals("DONE")) {
@@ -134,7 +129,7 @@ public class ClackClient {
             } else {
                 String message = nextString + this.inFromStd.nextLine();
                 // dataToSendToServer = new MessageClackData();
-                System.out.println("reached else. not listusers or send file");
+
                 this.dataToSendToServer = new MessageClackData(this.userName, message, DEFAULTKEY, ClackData.CONSTANT_SENDMESSAGE);
             }
 
@@ -145,9 +140,9 @@ public class ClackClient {
 
     public void sendData() {
         try {
-            System.out.println("reached before try in send data");
+
             this.outToServer.writeObject(this.dataToSendToServer);
-            System.out.println("reached try in send data");
+
         } catch (IOException ioe) {
             // catch (Exception e) {
             System.err.println("IO Exception");
@@ -159,11 +154,11 @@ public class ClackClient {
     public void receiveData() {
         try {
 //            ClackData dataToReceiveFromServer = (ClackData) inFromServer.readObject();
-            System.out.println("reached before try in receive data");
+
             this.dataToReceiveFromServer = (ClackData) this.inFromServer.readObject();
-            System.out.println("reached try in receive data");
+
         } catch (IOException ioe) {
-            System.err.println("IO Exception");
+
         } catch (ClassNotFoundException cnfe) {
             System.err.println("class not found");
         } catch (RuntimeException rte) {
